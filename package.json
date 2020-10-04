@@ -2,7 +2,7 @@
   "name": "apirestclivo",
   "version": "1.0.0",
   "description": "\"Api rest to clivo\"",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +18,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node":"12.14.0"
   }
 }
