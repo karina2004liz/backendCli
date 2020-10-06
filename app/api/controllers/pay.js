@@ -17,6 +17,7 @@ module.exports = {
  },
  // método para obtener transacciones de pagos por ID de usuario
  getAllByUser: function(req, res, next) {
+    console.log(req.body.idUser)
     let pays = [];
   payModel.find({idUser:req.body.idUser}, function(err, paysUser){
      if (err){
@@ -78,16 +79,30 @@ module.exports = {
       next(err);
      } else{
       for (let pay of paysUser) {
-       pays.push({id: pay._id,  amount: pay.amount, ticket: pay.ticket, idParking: pay.idParking, idUser: pay.idUser, created_at : pay.created_at.toISOString().substring(0,10)});
+       pays.push({id: pay._id,  amount: pay.amount, ticket: pay.ticket, idParking: pay.idParking, idUser: pay.idUser, created_at : pay.created_at});
       }
      let json2csvParser = new Parser()
      let csv = json2csvParser.parse(pays);
      console.log(csv)
       
-     res.send(csv).json({status:"success", message: "paysUser list found!!!", data:{paysUser: pays}, csv:csv});
+     res.json({status:"success", message: "paysUser list found!!!", data:{paysUser: pays}});
          
      }
   });
    },
+   getAllPays: function(req, res, next) {
+      let pays = [];
+    payModel.find({}, function(err, paysUser){
+       if (err){
+        next(err);
+       } else{
+        for (let pay of paysUser) {
+         pays.push({id: pay._id,  amount: pay.amount, ticket: pay.ticket, idParking: pay.idParking, idUser: pay.idUser, created_at : pay.created_at.toISOString().substring(0,10)});
+        }
+        res.json({status:"success", message: "User list found!!!", data:{Transactions: pays}});
+           
+       }
+    });
+     }
 
 }

@@ -20,8 +20,11 @@ module.exports = {
  },
  // método para logear al usuaario
 authenticate: function(req, res, next) {
+   console.log(req.body.email)
+   console.log(req.body.password)
   userModel.findOne({email:req.body.email}, function(err, userInfo){
      if (err) {
+      res.json({status:"error", message: err});
       next(err);
      } else {
       if(bcrypt.compareSync(req.body.password, userInfo.password)) {
@@ -43,4 +46,20 @@ authenticate: function(req, res, next) {
      }
     });
    },
+
+   //método para obtener a todos los usuarioa
+   getAllUsers: function(req, res, next) {
+      let pays = [];
+    userModel.find({}, function(err, paysUser){
+       if (err){
+        next(err);
+       } else{
+        for (let pay of paysUser) {
+         pays.push({id: pay._id,  name: pay.name, email: pay.email, phone: pay.phone, created_at : pay.created_at.toISOString().substring(0,10)});
+        }
+        res.json({status:"success", message: "User list found!!!", data:{Users: pays}});
+           
+       }
+    });
+     },
 }

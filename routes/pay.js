@@ -6,7 +6,7 @@ const payController = require('../app/api/controllers/pay');
 
 router.post('/', payController.create)
 router.post('/getByUser', payController.getAllByUser )
-//router.post('/getByDate', payController.getAllByDate)
+router.post('/getAllPays', payController.getAllPays)
 router.post('/getByDates', payController.getAllByDates)
 router.post('/getByParking',payController.getAllByParking)
 router.post('/getByDateAndParking',payController.getAllByDatesAndParking)

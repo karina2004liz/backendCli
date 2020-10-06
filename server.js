@@ -6,7 +6,9 @@ const pay = require('./routes/pay')
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //Importando la configuracion de conexion a la BD
 var jwt = require('jsonwebtoken');
+var cors = require('cors')
 const app = express();
+app.use(cors())
 app.set('secretKey', 'ClaveSecreta'); // Clave Secreta para nuestro JWT
 
 // Conectando a la base de datos de Mongo
@@ -20,14 +22,16 @@ res.json({"Clivo" : "API REST con NodeJS y MongoDB"});
 // Rutas publicas usuario
 app.use('/users', users.reg);
 app.use('/users', users.aut);
+app.use('/users',users.all);
 // Rutas privadas usuario
 app.use('/userUp', validateUser, users.upd);
 // Rutas privadas que solo pueden ser consumidas con un token generado
 app.use('/pay',validateUser , pay )
-app.use('/getparking',validateUser, parking)
+app.use('/getparking', validateUser,  parking)
 
 //middleware para validar al usuario.
 function validateUser(req, res, next) {
+
   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
     if (err) {
       res.json({status:"error", message: err.message, data:null});
