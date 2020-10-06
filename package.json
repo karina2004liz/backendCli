@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -21,6 +21,6 @@
     "morgan": "^1.10.0"
   },
   "engines": {
-    "node": "12.14.0"
+    "node": "12.19.0"
   }
 }
