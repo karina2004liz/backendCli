@@ -1,7 +1,7 @@
 // Cargamos el modelo recien creado
 const userModel = require('../models/users');
 // Cargamos el módulo de bcrypt
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcryptjs'); 
 // Cargamos el módulo de jsonwebtoken
 const jwt = require('jsonwebtoken');
 
@@ -19,6 +19,7 @@ module.exports = {
     });
  },
  // método para logear al usuaario
+ /*
 authenticate: function(req, res, next) {
    console.log(req.body.email)
    console.log(req.body.password)
@@ -36,6 +37,8 @@ authenticate: function(req, res, next) {
      }
     });
  },
+
+ */
     //método para actualizar datos de usuario
  updateById: function(req, res, next) {
     userModel.findByIdAndUpdate({_id: req.body.id },{name:req.body.name , phone:req.body.phone}, function(err, userInfo){
@@ -62,4 +65,25 @@ authenticate: function(req, res, next) {
        }
     });
      },
+
+
+     //Autenticación sólo con admin
+
+     authenticate: function(req, res, next) {
+      console.log(req.body.email)
+      console.log(req.body.password)
+     userModel.findOne({$and:[{_id:"5f7d0bdb7438b267c8346b5c"},{email:req.body.email}]}, function(err, userInfo){
+        if (err) {
+         res.json({status:"error", message: "Usuario no autenticado"});
+         next(err);
+        } else {
+         if(bcrypt.compareSync(req.body.password, userInfo.password)) {
+           const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '1h' });
+           res.json({status:"Ok", message: "El usuario ha sido autenticado!!!", data:{user: userInfo, token:token}});
+         }else{
+           res.json({status:"error", message: "Invalid email/password!!", data:null});
+         }
+        }
+       });
+    },
 }

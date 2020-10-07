@@ -1,7 +1,7 @@
 // Cargamos el módulo de mongoose
 const mongoose = require('mongoose');
 // Cargamos el módulo de bcrypt
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 // Definimos el factor de costo, el cual controla cuánto tiempo se necesita para calcular un solo hash de BCrypt. Cuanto mayor sea el factor de costo, más rondas de hash se realizan. Cuanto más tiempo sea necesario, más difícil será romper el hash con fuerza bruta.
 const saltRounds = 10;
 //Definimos los esquemas
