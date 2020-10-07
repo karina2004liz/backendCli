@@ -67,7 +67,7 @@ authenticate: function(req, res, next) {
      },
 
 
-     //Autenticación sólo con admin
+     //Autenticación sólo con admin //
 
      authenticate: function(req, res, next) {
       console.log(req.body.email)
