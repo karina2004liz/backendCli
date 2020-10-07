@@ -17,7 +17,7 @@ mongoose.connection.on('error', console.error.bind(console, 'Error de conexion e
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', function(req, res){
-res.json({"Clivo" : "API REST con NodeJS y MongoDB debe aparecer algo"});
+res.send("Clivo API REST con NodeJS y MongoDB debe aparecer algo");
 });
 // Rutas publicas usuario
 app.use('/users', users.reg);
