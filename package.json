@@ -23,5 +23,14 @@
   },
   "engines": {
     "node": "12.19.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karina2004liz/backendCli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karina2004liz/backendCli/issues"
+  },
+  "homepage": "https://github.com/karina2004liz/backendCli#readme"
 }
